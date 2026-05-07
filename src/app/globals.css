@@ -39,7 +39,7 @@ html[data-theme="light"] #app-shell {
 html[data-theme="light"] #app-shell img,
 html[data-theme="light"] #app-shell video,
 html[data-theme="light"] #app-shell canvas,
-html[data-theme="light"] #app-shell svg {
+html[data-theme="light"] #app-shell svg[data-theme-media] {
   filter: invert(1) hue-rotate(180deg);
 }
 
