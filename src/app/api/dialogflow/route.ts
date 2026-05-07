@@ -35,6 +35,28 @@ function getDialogflowClient() {
   const credentialsPath = process.env.GOOGLE_APPLICATION_CREDENTIALS;
   if (credentialsPath) {
     try {
+      // Some folks accidentally paste JSON into GOOGLE_APPLICATION_CREDENTIALS.
+      // If it looks like JSON, treat it like GOOGLE_APPLICATION_CREDENTIALS_JSON.
+      const trimmed = credentialsPath.trim();
+      if (trimmed.startsWith("{")) {
+        const parsed = JSON.parse(trimmed) as {
+          client_email?: string;
+          private_key?: string;
+          project_id?: string;
+        };
+        if (parsed.client_email && parsed.private_key) {
+          return new dialogflow.SessionsClient({
+            projectId: projectId ?? parsed.project_id,
+            fallback: true,
+            credentials: {
+              client_email: parsed.client_email,
+              private_key: parsed.private_key,
+            },
+          });
+        }
+        return null;
+      }
+
       const abs = resolvePath(process.cwd(), credentialsPath);
       const raw = readFileSync(abs, "utf8");
       const parsed = JSON.parse(raw) as {
@@ -54,7 +76,8 @@ function getDialogflowClient() {
         });
       }
     } catch {
-      // ignore: handled below by returning null
+      // Missing/bad file path: treat as "not configured" instead of throwing.
+      return null;
     }
   }
 
