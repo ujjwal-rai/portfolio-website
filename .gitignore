@@ -24,6 +24,15 @@
 .DS_Store
 *.pem
 
+# secrets / credentials (never commit)
+key.json
+**/key.json
+*service-account*.json
+*service_account*.json
+*gcp*.json
+*google*credentials*.json
+*dialogflow*.json
+
 # debug
 npm-debug.log*
 yarn-debug.log*
