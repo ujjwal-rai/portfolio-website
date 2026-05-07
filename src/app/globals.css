@@ -24,3 +24,34 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Lightweight "light theme" without rewriting all Tailwind classes.
+   Important: we avoid applying `filter` on `body` because that breaks
+   `position: fixed` on some browsers. */
+html[data-theme="light"] #app-shell {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html[data-theme="light"] #app-shell img,
+html[data-theme="light"] #app-shell video,
+html[data-theme="light"] #app-shell canvas,
+html[data-theme="light"] #app-shell svg {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+/* Slightly punchier selection highlight */
+::selection {
+  background: rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+/* Subtle film grain */
+.noise {
+  opacity: 0.12;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+  mix-blend-mode: overlay;
+}
