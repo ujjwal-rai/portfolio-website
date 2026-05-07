@@ -110,30 +110,41 @@ function SemesterBlock({
       </button>
 
       {open && (
-        <table className="w-full text-left text-sm">
-          <thead className="bg-white/[0.03]">
-            <tr className="text-xs uppercase tracking-wide text-white/40">
-              <th className="px-5 py-2.5 font-medium">Code</th>
-              <th className="px-5 py-2.5 font-medium">Subject</th>
-              <th className="px-5 py-2.5 font-medium text-right">Credits</th>
-              <th className="px-5 py-2.5 font-medium text-center">Grade</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-white/[0.05] bg-white/[0.02] text-white/75">
-            {subjects.map((s) => (
-              <tr key={`${s.code}-${s.name}`} className="hover:bg-white/4 transition">
-                <td className="px-5 py-3 font-mono text-xs text-white/40">{s.code}</td>
-                <td className="px-5 py-3">{s.name}</td>
-                <td className="px-5 py-3 text-right text-white/50 tabular-nums">{s.credit}</td>
-                <td className="px-5 py-3 text-center">
-                  <span className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${gradeColor(s.grade)} ${gradeBg(s.grade)}`}>
-                    {s.grade}
-                  </span>
-                </td>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[640px] text-left text-sm">
+            <thead className="bg-white/[0.03]">
+              <tr className="text-xs uppercase tracking-wide text-white/40">
+                <th className="px-5 py-2.5 font-medium">Code</th>
+                <th className="px-5 py-2.5 font-medium">Subject</th>
+                <th className="px-5 py-2.5 font-medium text-right">Credits</th>
+                <th className="px-5 py-2.5 font-medium text-center">Grade</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-white/[0.05] bg-white/[0.02] text-white/75">
+              {subjects.map((s) => (
+                <tr
+                  key={`${s.code}-${s.name}`}
+                  className="hover:bg-white/4 transition"
+                >
+                  <td className="px-5 py-3 font-mono text-xs text-white/40">
+                    {s.code}
+                  </td>
+                  <td className="px-5 py-3">{s.name}</td>
+                  <td className="px-5 py-3 text-right text-white/50 tabular-nums">
+                    {s.credit}
+                  </td>
+                  <td className="px-5 py-3 text-center">
+                    <span
+                      className={`inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold ${gradeColor(s.grade)} ${gradeBg(s.grade)}`}
+                    >
+                      {s.grade}
+                    </span>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
@@ -171,8 +182,8 @@ function MarksheetReportBody({ report }: { report: MarksheetReport }) {
         <span className="text-xl font-bold text-white">{report.score}</span>
       </div>
 
-      <div className="overflow-hidden rounded-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
-        <table className="w-full text-left text-sm">
+      <div className="overflow-x-auto rounded-2xl shadow-[0_0_0_1px_rgba(255,255,255,0.08)]">
+        <table className="w-full min-w-[760px] text-left text-sm">
           <thead className="bg-white/5">
             <tr className="text-xs uppercase tracking-wide text-white/40">
               <th className="px-4 py-3 font-medium">Code</th>
